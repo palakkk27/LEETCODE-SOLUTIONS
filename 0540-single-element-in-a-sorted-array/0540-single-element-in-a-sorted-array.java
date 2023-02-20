@@ -4,6 +4,7 @@ class Solution {
         int end = nums.length-1;
         
         //base case 
+        
         if(end==0){
             return nums[0];
         }
