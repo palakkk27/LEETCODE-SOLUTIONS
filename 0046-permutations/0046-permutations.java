@@ -1,13 +1,23 @@
 class Solution {
-    static void solve(int[] nums,boolean[] flag,List<Integer>arr,List<List<Integer>> res){
+     public List<List<Integer>> permute(int[] nums) {
+        boolean[] flag=new boolean[nums.length];
+        List<List<Integer>> res=new ArrayList<>();
+        solve(nums, flag, new ArrayList<Integer>(), res);
+        return res;
+    }
+    
+    void solve(int[] nums,boolean[] flag,List<Integer>arr,List<List<Integer>> res)
+    {
         if(arr.size()==nums.length){
-            res.add(new ArrayList<>(arr));
+            res.add(new ArrayList(arr));
             return;
         }
+        
             for(int i=0;i<nums.length;i++){
-                if(!flag[i]){
-                    flag[i]=true;
+                if(flag[i]==true)
+                    continue;
                     arr.add(nums[i]);
+                    flag[i]=true;
                     solve(nums, flag, arr, res);
                     arr.remove(arr.size()-1);
                     flag[i]=false;
@@ -15,11 +25,3 @@ class Solution {
             }
         }
     
-
-    public List<List<Integer>> permute(int[] nums) {
-        boolean[] flag=new boolean[nums.length];
-        List<List<Integer>> res=new ArrayList<>();
-        solve(nums, flag, new ArrayList<Integer>(), res);
-        return res;
-    }
-}
