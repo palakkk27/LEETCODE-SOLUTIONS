@@ -3,7 +3,7 @@ class Solution {
         int newindex=0; 
         for(int i=0; i<chars.length; i++){
             Integer count=1; 
-            while( i<chars.length-1 && chars[i]==chars[i+1]){  //while same characters are found 
+            while( i<chars.length-1 && chars[i]==chars[i+1]){  //while same characters are                                                                  found 
                 count++;
                 i++;
             }
