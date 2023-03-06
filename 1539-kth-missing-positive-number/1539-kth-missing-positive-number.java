@@ -5,7 +5,7 @@ class Solution {
         while(s<=e){
             int mid = s+(e-s)/2;
             int em = mid+1;
-            if(arr[mid] - em<k){
+            if(arr[mid] - em < k){
                 s = mid+1;
             }else{
                 e = mid-1;
