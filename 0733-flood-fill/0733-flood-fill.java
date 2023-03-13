@@ -1,16 +1,26 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        int color = image[sr][sc];
-        if (color != newColor) dfs(image, sr, sc, color, newColor);
-        return image;
-    }
-    public void dfs(int[][] image, int r, int c, int color, int newColor) {
-        if (image[r][c] == color) {
-            image[r][c] = newColor;
-            if (r >= 1) dfs(image, r-1, c, color, newColor);
-            if (c >= 1) dfs(image, r, c-1, color, newColor);
-            if (r+1 < image.length) dfs(image, r+1, c, color, newColor);
-            if (c+1 < image[0].length) dfs(image, r, c+1, color, newColor);
+    private void dfs(int inicolor,int newcolor,int[][] image,int row,int col,int ans[][] ,            int delrow[],int delcol[]){
+            ans[row][col] = newcolor;
+             int n=image.length;
+            int m =image[0].length;
+            for(int i=0;i<4;i++){
+                int nrow = row + delrow[i];
+                int ncol = col + delcol[i];
+                
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && image[nrow][ncol] ==inicolor && ans[nrow][ncol]!=newcolor)
+                {
+                   dfs(inicolor,newcolor,image,nrow,ncol,ans,delrow,delcol);
+                }
         }
+
     }
+    public int[][] floodFill(int[][] image, int sr, int sc, int newcolor) {
+        int inicolor = image[sr][sc];
+        int[][] ans = image;
+        int delrow[] = {-1,0,+1,0};        
+        int delcol[] = {0,+1,0,-1};
+        dfs(inicolor, newcolor, image,sr,sc,ans,delrow,delcol);
+        return ans;
+        
+}
 }
