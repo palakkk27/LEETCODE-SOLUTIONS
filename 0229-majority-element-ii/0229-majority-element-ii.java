@@ -1,19 +1,27 @@
 class Solution {
-    public List<Integer> majorityElement(int[] nums) {
-        HashMap<Integer,Integer>hm = new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            if(hm.containsKey(nums[i])){
-                hm.put(nums[i],hm.get(nums[i])+1);
-            }else{
-                hm.put(nums[i],1);
+    public List<Integer> majorityElement(int[] v) {
+        int n = v.length; //size of the array
+        List<Integer> ls = new ArrayList<>(); // list of answers
+
+        //declaring a map:
+        HashMap<Integer, Integer> mpp = new HashMap<>();
+
+        // least occurrence of the majority element:
+        int mini = (int)(n / 3) + 1;
+
+        //storing the elements with its occurnce:
+        for (int i = 0; i < n; i++) {
+            int value = mpp.getOrDefault(v[i], 0);
+            mpp.put(v[i], value + 1);
+
+            //checking if v[i] is
+            // the majority element:
+            if (mpp.get(v[i]) == mini) {
+                ls.add(v[i]);
             }
+            if (ls.size() == 2) break;
         }
-        List<Integer> ans  = new ArrayList<>();
-        Set<Integer> set = hm.keySet();
-        for (Integer key : set) {
-            if(hm.get(key) > nums.length/3)
-               ans.add(key);
-    }
-    return ans;
+
+        return ls;
     }
 }
