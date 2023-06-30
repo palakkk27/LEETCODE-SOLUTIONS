@@ -1,0 +1,66 @@
+import java.util.*;
+
+class Solution {
+    public int latestDayToCross(int row, int col, int[][] cells) {
+        int[][] matrix = new int[row][col];
+        int left = 0;
+        int right = cells.length;
+
+        while (left < right) {
+            int mid = left + (right - left + 1) / 2;
+            int[][] copyMatrix = new int[row][col];
+
+            for (int i = 0; i < mid; i++) {
+                int r = cells[i][0] - 1;
+                int c = cells[i][1] - 1;
+                copyMatrix[r][c] = 1;
+            }
+
+            if (hasPath(copyMatrix)) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return left;
+    }
+
+    private boolean hasPath(int[][] matrix) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        boolean[][] visited = new boolean[row][col];
+        Queue<int[]> queue = new LinkedList<>();
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int i = 0; i < col; i++) {
+            if (matrix[0][i] == 0) {
+                queue.offer(new int[]{0, i});
+                visited[0][i] = true;
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int[] curr = queue.poll();
+            int r = curr[0];
+            int c = curr[1];
+
+            if (r == row - 1) {
+                return true; // Reached the bottom row
+            }
+
+            for (int[] dir : directions) {
+                int newRow = r + dir[0];
+                int newCol = c + dir[1];
+
+                if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col
+                        && matrix[newRow][newCol] == 0 && !visited[newRow][newCol]) {
+                    queue.offer(new int[]{newRow, newCol});
+                    visited[newRow][newCol] = true;
+                }
+            }
+        }
+
+        return false; // No path from top to bottom
+    }
+}
