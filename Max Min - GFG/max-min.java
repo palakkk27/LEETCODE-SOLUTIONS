@@ -40,12 +40,16 @@ class Solution
     public static int findSum(int A[],int N) 
     {
         //code here
-        int n = A.length;
+        N = A.length;
         Arrays.sort(A);
-        int max = A[0];
-        int min = A[n-1];
+        int max = A[N-1];
+        int min = A[0];
         
-        int sum = max+min;
-        return sum;
+        int output = max+min;
+        
+        return output;
     }
+    
+    //TC O(NLOGN) 
+    //SC O(1);
 }
